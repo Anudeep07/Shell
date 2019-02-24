@@ -30,7 +30,7 @@ void split_args();
 
 void execute_command();
 
-//command functions start
+//command functions start ====================================================
 void cat();
 
 void cd();
@@ -66,7 +66,7 @@ void path();
 void help();
 
 void shell_exit();
-//command functions end
+//command functions end ====================================================
 
 /*
 --------------------------------------------------------------------------------
