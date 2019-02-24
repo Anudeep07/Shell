@@ -26,6 +26,8 @@ void setup_cwd();
 
 void prompt();
 
+void split_args();
+
 void execute_command();
 
 //command functions start
@@ -75,9 +77,12 @@ void shell_exit();
 char PWD[BUFFER_LENGTH];
 char *HOME;
 
-char commandline[BUFFER_LENGTH*2];      //stores the command line
+char commandline[BUFFER_LENGTH*2];       //stores the command line
 int commandline_length;                 //stores the actual length of the commandline
 char *command;                          //stores the command
+
+int arg_count;                          //stores the no. of arguments
+char *arg_values[100];                      //stores the arguments passed to the command
 
 //builtin commands
 char *builtin[] = {

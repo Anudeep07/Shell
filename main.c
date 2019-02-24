@@ -8,7 +8,7 @@ int main()
     {
         setup_cwd();
         prompt();
-        command = strtok(commandline, " ");
+        split_args();
         execute_command();
 
     }while(1);
@@ -48,6 +48,18 @@ void prompt()
     }*/
 }
 
+void split_args()
+{
+    char *ptr;
+    arg_count = 0;
+
+    command = strtok(commandline, " ");
+    arg_values[arg_count++] = command;
+
+    while((ptr = strtok(NULL, " ")) != NULL)
+        arg_values[arg_count++] = ptr;
+}
+
 void execute_command()
 {
     int i;
@@ -55,6 +67,7 @@ void execute_command()
     {
         if(!strcmp(builtin[i], command))
         {
+            optind = 1;                         //setting getopt() index to 1 (starts scanning for options from arg_values[optind]
             (*functions[i])();                 //respective function will be called
             break;
         }
@@ -76,7 +89,29 @@ void shell_exit()
 
 void cat()
 {
-    printf("cat command ^_^\n");
+    int opt;
+    //opterr = 0;
+    while((opt = getopt(arg_count, arg_values, "nEs")) != -1)
+    {
+
+        switch(opt)
+        {
+        case 'n':
+            printf("option n\n");
+            break;
+        case 'E':
+            printf("option E\n");
+            break;
+        case 's':
+            printf("option s\n");
+            break;
+        default:
+            printf("Default: %c , char = %c\n", opt, optopt);
+        }
+    }
+
+    for(int i=optind ; i<arg_count ; i++)
+        printf("Non-option arg = %s\n", arg_values[i]);
 }
 
 void cd(){}
