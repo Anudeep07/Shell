@@ -1,16 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-
 #include "shell.h"
-
-char PWD[BUFFER_LENGTH];
-char *HOME;
-
-char commandline[BUFFER_LENGTH*2];      //stores the command line
-int commandline_length;
-char *command;                          //stores the command
 
 int main()
 {
@@ -20,15 +8,10 @@ int main()
     {
         setup_cwd();
         prompt();
-
         command = strtok(commandline, " ");
+        execute_command();
 
-        /*
-        execute command ^_^
-        also remove while condition ^_^
-        */
-
-    }while(strcmp(commandline, "exit"));
+    }while(1);
 
     return 0;
 }
@@ -64,3 +47,67 @@ void prompt()
         ptr = strtok(NULL, " ");
     }*/
 }
+
+void execute_command()
+{
+    int i;
+    for(i=0 ; i<count_builtin ; i++)
+    {
+        if(!strcmp(builtin[i], command))
+        {
+            (*functions[i])();                 //respective function will be called
+            break;
+        }
+    }
+
+    if(i == count_builtin)
+    {
+        printf(ANSI_COLOR_RED "Not a builtin command." ANSI_COLOR_RESET "\n");
+        //external command
+        //fork a child & exec
+        //wait for child to exit
+    }
+}
+
+void shell_exit()
+{
+    exit(0);
+}
+
+void cat()
+{
+    printf("cat command ^_^\n");
+}
+
+void cd(){}
+
+void ls(){}
+
+void makedir(){}
+
+void removedir(){}
+
+void cp(){}
+
+void mv(){}
+
+void ln(){}
+
+void rm(){}
+
+void echo(){}
+
+void clearscreen(){}
+
+void chmod(){}
+
+void pwd(){}
+
+void touch(){}
+
+void home(){}
+
+void path(){}
+
+void help(){}
+
