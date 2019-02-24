@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1550924364 source:/home/anudeep/Codeblocks/Shell/main.c
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<string.h>
+	"shell.h"
+
+1550923099 /home/anudeep/Codeblocks/Shell/shell.h
+
