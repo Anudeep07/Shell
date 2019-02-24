@@ -67,7 +67,7 @@ void execute_command()
     {
         if(!strcmp(builtin[i], command))
         {
-            optind = 1;                         //setting getopt() index to 1 (starts scanning for options from arg_values[optind]
+            optind = 0;                         //setting getopt() index to 1 (starts scanning for options from arg_values[optind]
             (*functions[i])();                 //respective function will be called
             break;
         }
@@ -91,6 +91,7 @@ void cat()
 {
     int opt;
     //opterr = 0;
+
     while((opt = getopt(arg_count, arg_values, "nEs")) != -1)
     {
 
