@@ -74,58 +74,12 @@ void shell_exit();
 --------------------------------------------------------------------------------
 */
 
-char PWD[BUFFER_LENGTH];
-char *HOME;
+extern char PWD[BUFFER_LENGTH];
+extern char *HOME;
 
-char commandline[BUFFER_LENGTH*2];       //stores the command line
-int commandline_length;                 //stores the actual length of the commandline
-char *command;                          //stores the command
+extern char commandline[BUFFER_LENGTH*2];       //stores the command line
+extern int commandline_length;                 //stores the actual length of the commandline
+extern char *command;                          //stores the command
 
-int arg_count;                          //stores the no. of arguments
-char *arg_values[100];                      //stores the arguments passed to the command
-
-//builtin commands
-char *builtin[] = {
-    "cat",
-    "cd",
-    "ls",
-    "mkdir",
-    "rmdir",
-    "cp",
-    "mv",
-    "ln",
-    "rm",
-    "echo",
-    "clear",
-    "chmod",
-    "pwd",
-    "touch",
-    "home",
-    "path",
-    "help",
-    "exit"
-};
-
-int count_builtin = sizeof(builtin) / sizeof(char*);
-
-//function pointer to the respective commands
-void (*functions[])() = {
-    &cat,
-    &cd,
-    &ls,
-    &makedir,
-    &removedir,
-    &cp,
-    &mv,
-    &ln,
-    &rm,
-    &echo,
-    &clearscreen,
-    &chmod,
-    &pwd,
-    &touch,
-    &home,
-    &path,
-    &help,
-    &shell_exit
-};
+extern int arg_count;                          //stores the no. of arguments
+extern char *arg_values[100];                      //stores the arguments passed to the command

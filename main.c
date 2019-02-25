@@ -1,4 +1,16 @@
-#include "shell.h"
+#include "shell.h"                        //shell.h contains all the declarations
+
+//defining the variables declared in shell.h
+char PWD[BUFFER_LENGTH];
+char *HOME;
+
+char commandline[BUFFER_LENGTH*2];       //stores the command line
+int commandline_length;                  //stores the actual length of the commandline
+char *command;                           //stores the command
+
+int arg_count;                           //stores the no. of arguments
+char *arg_values[100];                   //stores the arguments passed to the command
+
 
 int main()
 {
@@ -36,16 +48,6 @@ void prompt()
     //to remove the \n added by fgets
     if(commandline[commandline_length-1] == '\n')
         commandline[commandline_length-1] = '\0';
-
-    /*working of strtok
-
-    first time pass the string to be parsed
-    char *ptr = strtok(commandline, " ");
-    while(ptr != NULL)
-    {
-        //next time pass NULL to parse the same string
-        ptr = strtok(NULL, " ");
-    }*/
 }
 
 void split_args()
@@ -63,6 +65,53 @@ void split_args()
 void execute_command()
 {
     int i;
+
+    //builtin commands
+    char *builtin[] = {
+        "cat",
+        "cd",
+        "ls",
+        "mkdir",
+        "rmdir",
+        "cp",
+        "mv",
+        "ln",
+        "rm",
+        "echo",
+        "clear",
+        "chmod",
+        "pwd",
+        "touch",
+        "home",
+        "path",
+        "help",
+        "exit"
+    };
+
+    int count_builtin = sizeof(builtin) / sizeof(char*);
+
+    //function pointer to the respective commands
+    void (*functions[])() = {
+        &cat,
+        &cd,
+        &ls,
+        &makedir,
+        &removedir,
+        &cp,
+        &mv,
+        &ln,
+        &rm,
+        &echo,
+        &clearscreen,
+        &chmod,
+        &pwd,
+        &touch,
+        &home,
+        &path,
+        &help,
+        &shell_exit
+    };
+
     for(i=0 ; i<count_builtin ; i++)
     {
         if(!strcmp(builtin[i], command))
@@ -87,33 +136,6 @@ void shell_exit()
     exit(0);
 }
 
-void cat()
-{
-    int opt;
-    //opterr = 0;
-
-    while((opt = getopt(arg_count, arg_values, "nEs")) != -1)
-    {
-
-        switch(opt)
-        {
-        case 'n':
-            printf("option n\n");
-            break;
-        case 'E':
-            printf("option E\n");
-            break;
-        case 's':
-            printf("option s\n");
-            break;
-        default:
-            printf("Default: %c , char = %c\n", opt, optopt);
-        }
-    }
-
-    for(int i=optind ; i<arg_count ; i++)
-        printf("Non-option arg = %s\n", arg_values[i]);
-}
 
 void cd(){}
 

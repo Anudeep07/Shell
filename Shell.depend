@@ -8,12 +8,101 @@
 	<unistd.h>
 	<string.h>
 
-1551027194 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/main.c
+1551104253 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/main.c
 	"shell.h"
 
-1551021573 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/shell.h
+1551102531 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/shell.h
 	<stdio.h>
 	<stdlib.h>
 	<unistd.h>
 	<string.h>
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/cat.c
+	"../shell.h"
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/cat.c
+	"../shell.h"
+
+1551104059 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/includes.h
+	"commands/cat.c"
+	"commands/cd.c"
+	"commands/ls.c"
+	"commands/mkdir.c"
+	"commands/rmdir.c"
+	"commands/cp.c"
+	"commands/mv.c"
+	"commands/ln.c"
+	"commands/rm.c"
+	"commands/echo.c"
+	"commands/clear.c"
+	"commands/chmod.c"
+	"commands/pwd.c"
+	"commands/touch.c"
+	"commands/home.c"
+	"commands/path.c"
+	"commands/help.c"
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/cd.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/ls.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/mkdir.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/rmdir.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/cp.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/mv.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/ln.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/rm.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/echo.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/clear.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/chmod.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/pwd.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/touch.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/home.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/path.c
+
+1551103694 /home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/help.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/cd.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/chmod.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/clear.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/cp.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/echo.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/help.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/home.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/ln.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/ls.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/mkdir.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/mv.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/path.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/pwd.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/rm.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/rmdir.c
+
+1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/touch.c
 
