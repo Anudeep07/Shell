@@ -15,6 +15,7 @@ char *arg_values[100];                   //stores the arguments passed to the co
 int main()
 {
     HOME = getenv("HOME");
+    chdir(HOME);                        //initially pwd is HOME
 
     do
     {
@@ -153,17 +154,9 @@ void ln(){}
 
 void rm(){}
 
-void echo(){}
-
-void clearscreen(){}
-
 void chmod(){}
 
-void pwd(){}
-
 void touch(){}
-
-void home(){}
 
 void path(){}
 

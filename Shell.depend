@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1550998813 source:/home/anudeep/Codeblocks/Shell/main.c
+1551455511 source:/home/anudeep/Codeblocks/Shell/main.c
 	"shell.h"
 
-1550998306 /home/anudeep/Codeblocks/Shell/shell.h
+1551454718 /home/anudeep/Codeblocks/Shell/shell.h
 	<stdio.h>
 	<stdlib.h>
 	<unistd.h>
@@ -105,4 +105,43 @@
 1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/rmdir.c
 
 1551103694 source:/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/commands/touch.c
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/cat.c
+	"../shell.h"
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/cd.c
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/chmod.c
+
+1551455955 source:/home/anudeep/Codeblocks/Shell/commands/clear.c
+	"../shell.h"
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/cp.c
+
+1551455067 source:/home/anudeep/Codeblocks/Shell/commands/echo.c
+	"../shell.h"
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/help.c
+
+1551455526 source:/home/anudeep/Codeblocks/Shell/commands/home.c
+	"../shell.h"
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/ln.c
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/ls.c
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/mkdir.c
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/mv.c
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/path.c
+
+1551455189 source:/home/anudeep/Codeblocks/Shell/commands/pwd.c
+	"../shell.h"
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/rm.c
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/rmdir.c
+
+1551454718 source:/home/anudeep/Codeblocks/Shell/commands/touch.c
 

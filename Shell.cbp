@@ -31,6 +31,57 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="commands/cat.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/cd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/chmod.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/clear.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/cp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/echo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/help.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/home.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/ln.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/ls.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/mkdir.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/mv.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/path.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/pwd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/rm.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/rmdir.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="commands/touch.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
