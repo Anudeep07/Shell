@@ -76,6 +76,7 @@ void shell_exit();
 
 extern char PWD[BUFFER_LENGTH];
 extern char *HOME;
+extern char *PATH;
 
 extern char commandline[BUFFER_LENGTH*2];       //stores the command line
 extern int commandline_length;                 //stores the actual length of the commandline
@@ -83,3 +84,6 @@ extern char *command;                          //stores the command
 
 extern int arg_count;                          //stores the no. of arguments
 extern char *arg_values[100];                      //stores the arguments passed to the command
+
+extern int optind;
+extern int optopt;

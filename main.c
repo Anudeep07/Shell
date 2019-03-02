@@ -3,6 +3,7 @@
 //defining the variables declared in shell.h
 char PWD[BUFFER_LENGTH];
 char *HOME;
+char *PATH;
 
 char commandline[BUFFER_LENGTH*2];       //stores the command line
 int commandline_length;                  //stores the actual length of the commandline
@@ -15,6 +16,7 @@ char *arg_values[100];                   //stores the arguments passed to the co
 int main()
 {
     HOME = getenv("HOME");
+    PATH = getenv("PATH");
     chdir(HOME);                        //initially pwd is HOME
 
     do
@@ -157,8 +159,6 @@ void rm(){}
 void chmod(){}
 
 void touch(){}
-
-void path(){}
 
 void help(){}
 
