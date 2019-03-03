@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #define BUFFER_LENGTH 4096
 
@@ -31,6 +33,10 @@ void split_args();
 void execute_command();
 
 void print_error(char *str);
+
+void loop_cleanup();
+
+void cleanup();
 
 //command functions start ====================================================
 void cat();
@@ -79,16 +85,16 @@ void shell_exit();
 extern char PWD[BUFFER_LENGTH];
 extern char *HOME;
 extern char *PATH;
+extern char *USER;
 
 extern char previous_directory[BUFFER_LENGTH];
 
 extern char *commandline;                      //stores the command line
-extern size_t commandline_buffer_length;
-extern size_t commandline_length;              //stores the actual length of the commandline
+extern size_t commandline_length;               //stores the length of command line
 extern char *command;                          //stores the command
 
 extern int arg_count;                          //stores the no. of arguments
-extern char *arg_values[100];                      //stores the arguments passed to the command
+extern char *arg_values[BUFFER_LENGTH];                      //stores the arguments passed to the command
 
 extern int optind;
 extern int optopt;

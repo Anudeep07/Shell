@@ -4,37 +4,40 @@
 char PWD[BUFFER_LENGTH];
 char *HOME;
 char *PATH;
+char *USER;
 
 char previous_directory[BUFFER_LENGTH];
 
-char *commandline = NULL;                   //stores the command line
-size_t commandline_buffer_length = 0;       //stores the length of the commandline buffer (buffer created using getline)
-size_t commandline_length;                  //stores the actual length of the commandline
+char *commandline;                          //stores the command line
+size_t commandline_length;                  //stores length of command line
 char *command;                              //stores the command
 
 int arg_count;                              //stores the no. of arguments
-char *arg_values[100];                      //stores the arguments passed to the command
-
+char *arg_values[BUFFER_LENGTH];            //stores the arguments passed to the command
 
 int main()
 {
     HOME = getenv("HOME");
     PATH = getenv("PATH");
+    USER = getenv("USER");
     chdir(HOME);                            //initially pwd is HOME
     strcpy(previous_directory, HOME);       //initially prev_dir is HOME
+    rl_bind_key('\t', rl_complete);         //readline library, bind tab to auto complete
 
     while(1)
     {
         setup_cwd();
         prompt();
 
-        if(commandline_length == 0)         //otherwise segmentation fault when executing strcmp(builtin[i], command) in exec_command
+        if(commandline_length == 0)
             continue;
 
         split_args();
         execute_command();     
+        loop_cleanup();
     }
 
+    cleanup();
     return 0;
 }
 
@@ -49,15 +52,16 @@ void setup_cwd()
 
 void prompt()
 {
-    printf(ANSI_COLOR_GREEN     "%s"    ANSI_COLOR_RESET, PWD);
-    printf(" $ ");
+    char prompt[100];
+    snprintf(prompt, sizeof(prompt), ANSI_COLOR_BLUE "%s" ANSI_COLOR_RESET ":" ANSI_COLOR_GREEN "%s" ANSI_COLOR_RESET " $ ", USER, PWD);
 
-    getline(&commandline, &commandline_buffer_length, stdin);
+    //readline library (display prompt & read input, returns char* to the input string)
+    commandline = readline(prompt);  
     commandline_length = strlen(commandline);
 
-    //getline inserts \n at the end
-    if(commandline[commandline_length-1] == '\n')
-        commandline[--commandline_length] = '\0';
+    //readline library (don't add empty lines to history)
+    if(commandline && *commandline)
+        add_history(commandline);    
 }
 
 void split_args()
@@ -67,7 +71,7 @@ void split_args()
 
     command = strtok(commandline, " ");
     arg_values[arg_count++] = command;
-
+    
     while((ptr = strtok(NULL, " ")) != NULL)
         arg_values[arg_count++] = ptr;
 }
@@ -141,6 +145,15 @@ void execute_command()
     }
 }
 
+void loop_cleanup()
+{
+    free(commandline);
+}
+
+void cleanup()
+{
+}
+
 void print_error(char *str)
 {
     fprintf(stderr, ANSI_COLOR_RED);
@@ -152,6 +165,8 @@ void print_error(char *str)
 
 void shell_exit()
 {
+    loop_cleanup();
+    cleanup();
     exit(0);
 }
 
