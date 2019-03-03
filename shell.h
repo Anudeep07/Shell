@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-
+#include <sys/stat.h>
 
 #define BUFFER_LENGTH 4096
 
@@ -30,6 +30,8 @@ void split_args();
 
 void execute_command();
 
+void print_error(char *str);
+
 //command functions start ====================================================
 void cat();
 
@@ -53,7 +55,7 @@ void echo();
 
 void clearscreen();
 
-void chmod();
+void change_permission();
 
 void pwd();
 
@@ -78,8 +80,11 @@ extern char PWD[BUFFER_LENGTH];
 extern char *HOME;
 extern char *PATH;
 
-extern char commandline[BUFFER_LENGTH*2];       //stores the command line
-extern int commandline_length;                 //stores the actual length of the commandline
+extern char previous_directory[BUFFER_LENGTH];
+
+extern char *commandline;                      //stores the command line
+extern size_t commandline_buffer_length;
+extern size_t commandline_length;              //stores the actual length of the commandline
 extern char *command;                          //stores the command
 
 extern int arg_count;                          //stores the no. of arguments

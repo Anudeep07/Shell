@@ -1,32 +1,39 @@
-#include "shell.h"                        //shell.h contains all the declarations
+#include "shell.h"                          //shell.h contains all the declarations
 
 //defining the variables declared in shell.h
 char PWD[BUFFER_LENGTH];
 char *HOME;
 char *PATH;
 
-char commandline[BUFFER_LENGTH*2];       //stores the command line
-int commandline_length;                  //stores the actual length of the commandline
-char *command;                           //stores the command
+char previous_directory[BUFFER_LENGTH];
 
-int arg_count;                           //stores the no. of arguments
-char *arg_values[100];                   //stores the arguments passed to the command
+char *commandline = NULL;                   //stores the command line
+size_t commandline_buffer_length = 0;       //stores the length of the commandline buffer (buffer created using getline)
+size_t commandline_length;                  //stores the actual length of the commandline
+char *command;                              //stores the command
+
+int arg_count;                              //stores the no. of arguments
+char *arg_values[100];                      //stores the arguments passed to the command
 
 
 int main()
 {
     HOME = getenv("HOME");
     PATH = getenv("PATH");
-    chdir(HOME);                        //initially pwd is HOME
+    chdir(HOME);                            //initially pwd is HOME
+    strcpy(previous_directory, HOME);       //initially prev_dir is HOME
 
-    do
+    while(1)
     {
         setup_cwd();
         prompt();
-        split_args();
-        execute_command();
 
-    }while(1);
+        if(commandline_length == 0)         //otherwise segmentation fault when executing strcmp(builtin[i], command) in exec_command
+            continue;
+
+        split_args();
+        execute_command();     
+    }
 
     return 0;
 }
@@ -35,7 +42,7 @@ void setup_cwd()
 {
     if((getcwd(PWD, BUFFER_LENGTH)) == NULL)
     {
-        fprintf(stderr, "Error: getcwd failed");
+        print_error("getcwd failed");
         exit(-1);
     }
 }
@@ -45,12 +52,12 @@ void prompt()
     printf(ANSI_COLOR_GREEN     "%s"    ANSI_COLOR_RESET, PWD);
     printf(" $ ");
 
-    fgets(commandline, sizeof(commandline), stdin);
+    getline(&commandline, &commandline_buffer_length, stdin);
     commandline_length = strlen(commandline);
 
-    //to remove the \n added by fgets
+    //getline inserts \n at the end
     if(commandline[commandline_length-1] == '\n')
-        commandline[commandline_length-1] = '\0';
+        commandline[--commandline_length] = '\0';
 }
 
 void split_args()
@@ -106,7 +113,7 @@ void execute_command()
         &rm,
         &echo,
         &clearscreen,
-        &chmod,
+        &change_permission,
         &pwd,
         &touch,
         &home,
@@ -134,13 +141,19 @@ void execute_command()
     }
 }
 
+void print_error(char *str)
+{
+    fprintf(stderr, ANSI_COLOR_RED);
+
+    fprintf(stderr, "Error: %s", str);
+
+    fprintf(stderr, ANSI_COLOR_RESET "\n");
+}
+
 void shell_exit()
 {
     exit(0);
 }
-
-
-void cd(){}
 
 void ls(){}
 
@@ -156,7 +169,7 @@ void ln(){}
 
 void rm(){}
 
-void chmod(){}
+void change_permission(){}
 
 void touch(){}
 
