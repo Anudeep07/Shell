@@ -178,8 +178,6 @@ void removedir(){}
 
 void cp(){}
 
-void mv(){}
-
 void ln(){}
 
 void rm(){}
