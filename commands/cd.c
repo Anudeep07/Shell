@@ -6,7 +6,7 @@ void change_dir(char *str)
     strcpy(temp, PWD);                 //update PWD to prev_dir if cd is successful, otherwise dont modify prev_dir
 
     if (chdir(str) == -1)
-        print_error("Unable to change directory.");
+        print_error("chdir", 1);
     else
         strcpy(previous_directory, temp);
 }
@@ -16,46 +16,40 @@ void check(char *str)
     //check if file exists
     if(access(str, F_OK) == -1)
     {
-        print_error("Directory or file doesn't exist.");
+        print_error("access", 1);
+        return;
+    }
+
+    struct stat buf;
+
+    if(stat(str, &buf) == -1)       //stat stores the attributes of file str in buf
+    {
+        print_error("stat", 1);
+        return;
+    }
+
+    if(! S_ISDIR(buf.st_mode))
+    {
+        //not a directory
+        print_error("Not a directory.", 0);
         return;
     }
 
     //check if file has execute permissions
     if(access(str, X_OK) == -1)
     {
-        print_error("Permission denied. (no execute)");
+        print_error("access", 1);
         return;
-    }
-
-    //check if str is a directory
-
-    struct stat buf;
-
-    if(stat(str, &buf) == -1)       //stat stores the attributes of file str in buf
-    {
-        print_error("Stat error.");
-        return;
-    }
-
-    if(S_ISDIR(buf.st_mode))
-    {
-        //str is directory        
-        change_dir(str);
-    }
-    else
-    {
-        //not a directory
-        print_error("Not a directory.");
     }
     
-
+    change_dir(str);
 }
 
 void cd()
 {
     if (arg_count > 2)
     {
-        print_error("Too many arguments");
+        print_error("Too many arguments", 0);
         return;
     }
 

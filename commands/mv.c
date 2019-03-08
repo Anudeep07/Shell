@@ -5,7 +5,7 @@
 void change_name(char *source, char *destination)
 {
     if (rename(source, destination) == -1)
-        print_error("Unable to rename. Please check permissions & try again!");
+        print_error("rename", 1);
 }
 
 //returns the pointer to the last component in a path. Eg: /home/anudeep/abc, returns char pointer to "abc"
@@ -55,13 +55,13 @@ void mv()
 {
     if (arg_count == 1)
     {
-        print_error("Missing file operand");
+        print_error("Missing file operand", 0);
         return;
     }
 
     if (arg_count == 2)
     {
-        print_error("Missing destination file operand");
+        print_error("Missing destination file operand", 0);
         return;
     }
     
@@ -90,13 +90,13 @@ void mv()
         //check if source file exists
         if (access(source, F_OK) == -1)
         {
-            print_error("Source directory or file doesn't exist.");
+            print_error("access", 1);
             return;
         }
 
         if (stat(source, &source_buf) == -1) //store source file in source_buf
         {
-            print_error("Stat error.");
+            print_error("stat", 1);
             return;
         }
 
@@ -110,14 +110,14 @@ void mv()
         {
             if (stat(destination, &destination_buf) == -1)
             {
-                print_error("Stat error.");
+                print_error("stat", 1);
                 return;
             }
 
             //check if both the file are not same
             if (SAME_INODE(source_buf, destination_buf))
             {
-                print_error("Source and destination files can't be same.");
+                print_error("Source and destination files can't be same.", 0);
                 return;
             }
 
@@ -152,7 +152,7 @@ void mv()
                 }
                 else
                 {
-                    print_error("Only directory file or regular file is allowed!");
+                    print_error("Only directory file or regular file is allowed!", 0);
                     return;
                 }
             }
@@ -171,15 +171,23 @@ void mv()
                 }
                 else
                 {
-                    print_error("Can't overwrite non-directory with directory!");
+                    print_error("Can't overwrite non-directory with directory!", 0);
                     return;
                 }
             }
             else
             {
-                print_error("Only directory file or regular file is allowed!");
+                print_error("Only directory file or regular file is allowed!", 0);
                 return;
             }
         }
+
+        return;
     }
+    else
+    {
+        //arg_count > 3
+    }
+    
+
 }

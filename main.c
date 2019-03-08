@@ -45,7 +45,7 @@ void setup_cwd()
 {
     if((getcwd(PWD, BUFFER_LENGTH)) == NULL)
     {
-        print_error("getcwd failed");
+        print_error("getcwd", 1);
         exit(-1);
     }
 }
@@ -154,13 +154,22 @@ void cleanup()
 {
 }
 
-void print_error(char *str)
+void print_error(char *str, int perr)
 {
     fprintf(stderr, ANSI_COLOR_RED);
 
-    fprintf(stderr, "Error: %s", str);
+    //fprintf(stderr, "Error: %s", str);
+    fprintf(stderr, "%s: ", arg_values[0]);
 
-    fprintf(stderr, ANSI_COLOR_RESET "\n");
+    if(perr)
+        perror(str);
+    else
+    {
+        fprintf(stderr, "%s\n", str);
+    }
+    
+
+    fprintf(stderr, ANSI_COLOR_RESET);
 }
 
 void shell_exit()

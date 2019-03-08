@@ -32,7 +32,7 @@ void split_args();
 
 void execute_command();
 
-void print_error(char *str);
+void print_error(char *str, int perr);
 
 void loop_cleanup();
 
