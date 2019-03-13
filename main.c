@@ -1,5 +1,18 @@
 #include "shell.h"                          //shell.h contains all the declarations
 
+//function declarations used in main.c
+void setup_cwd();
+
+void prompt();
+
+void split_args();
+
+void execute_command();
+
+void loop_cleanup();
+
+void cleanup();
+
 //defining the variables declared in shell.h
 char PWD[BUFFER_LENGTH];
 char *HOME;
@@ -131,6 +144,7 @@ void execute_command()
         if(!strcmp(builtin[i], command))
         {
             optind = 0;                         //setting getopt() index to 1 (starts scanning for options from arg_values[optind]
+            opterr = 0;
             (*functions[i])();                 //respective function will be called
             break;
         }

@@ -1,10 +1,32 @@
 #include "../shell.h"
 
-#define SAME_INODE(a, b) ((a).st_ino == (b).st_ino && (a).st_dev == (b).st_dev)
+bool i_flag;
 
+bool interactive(char *destination)
+{
+    char choice;
+    printf("Do you want to overwrite %s? (y/Y to overwrite) ", destination);
+    scanf("%c", &choice);
+    getchar();                  //to remove \n from the input buffer
+
+    //if choice is other than y or Y, return
+    if(choice != 'y' && choice != 'Y')
+        return false;                        
+    return true;
+}
+
+//renames source to destination
 void change_name(char *source, char *destination)
 {
-    if (rename(source, destination) == -1)
+    bool choice = true;
+
+    if(access(destination, F_OK) == 0 && i_flag)
+    {
+        //file exists
+        choice = interactive(destination);
+    }
+
+    if (choice && rename(source, destination) == -1)
         print_error("rename", 1);
 }
 
@@ -51,6 +73,19 @@ char *last_component(char *str)
     return last;
 }
 
+//moves source file inside destination directory (destination must be dir)
+void append_source_and_change(char *source, char *destination)
+{
+
+    char *new_source = last_component(source);
+    char new_destination[4096];
+    
+    snprintf(new_destination, sizeof(new_destination), "%s/%s", destination, new_source);
+    change_name(source, new_destination);
+
+    free(new_source);
+}
+
 void mv()
 {
     if (arg_count == 1)
@@ -66,23 +101,30 @@ void mv()
     }
     
     int opt;
-    int i_flag = 0;
-
-    /*    
+    i_flag = false;   
+    char err[25];
+    
     while((opt = getopt(arg_count, arg_values, "i")) != -1)
     {
         switch (opt)
         {
             case 'i':
-                i_flag = 1;
+                i_flag = true;
                 break;
+            default:
+                snprintf(err, sizeof(err), "invalid option -- '%c'", optopt);
+                print_error(err, 0);
+                return;
         }
-    }*/
+    }
 
-    if (arg_count == 3)
+    int file_count = optind ? arg_count - optind : arg_count - 1;       //if no options, then other than mv all are files
+
+    if (file_count == 2)
     {
-        char *source = arg_values[1];
-        char *destination = arg_values[2];
+        int index = optind ? optind : 1;
+        char *source = arg_values[index];
+        char *destination = arg_values[index+1];
 
         struct stat source_buf;
         struct stat destination_buf;
@@ -126,29 +168,12 @@ void mv()
             {
                 if (S_ISREG(destination_buf.st_mode))
                 {
-                    /*
-                    if(i_flag)
-                    {
-                        char choice;
-                        printf("Do you want to overwrite %s? (y/Y to overwrite) ", destination);
-                        scanf("%c", &choice);
-
-                        //if choice is other than y or Y, return
-                        if(choice != 'y' && choice != 'Y')
-                            return;                        
-                    }*/
                     change_name(source, destination);
+                    
                 }
                 else if (S_ISDIR(destination_buf.st_mode))
                 {
-                    //XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-                    char *new_source = last_component(source);
-                    char new_destination[4096];
-                    
-                    snprintf(new_destination, sizeof(new_destination), "%s/%s", destination, new_source);
-                    change_name(source, new_destination);
-
-                    free(new_source);
+                    append_source_and_change(source, destination);
                 }
                 else
                 {
@@ -160,14 +185,7 @@ void mv()
             {
                 if (S_ISDIR(destination_buf.st_mode))
                 {
-                    //XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-                    char *new_source = last_component(source);
-                    char new_destination[4096];
-
-                    snprintf(new_destination, sizeof(new_destination), "%s/%s", destination, new_source);
-                    change_name(source, new_destination);
-
-                    free(new_source);
+                    append_source_and_change(source, destination);
                 }
                 else
                 {
@@ -181,13 +199,41 @@ void mv()
                 return;
             }
         }
-
-        return;
     }
     else
     {
         //arg_count > 3
-    }
-    
 
+        //check if all the files exist
+        for(int i=optind ; i<arg_count ; i++)
+        {
+            if(access(arg_values[i], F_OK) == -1)
+            {
+                print_error("access", 1);
+                return;
+            }
+        }
+        
+        char *destination = arg_values[arg_count-1];
+        struct stat destination_buf;
+
+        if (stat(destination, &destination_buf) == -1)
+        {
+            print_error("stat", 1);
+            return;
+        }
+
+        //destination must be directory
+        if(!S_ISDIR(destination_buf.st_mode))
+        {
+            print_error("Destination must be a directory", 0);
+            return;
+        }
+
+        //scan through every file & mv it to destination (argc-1 because dont have to mv last one)
+        for(int i=optind ; i<arg_count-1 ; i++)
+        {
+            append_source_and_change(arg_values[i], destination);
+        }        
+    }
 }

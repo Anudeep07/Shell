@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <stdbool.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -18,25 +19,15 @@
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
+#define SAME_INODE(a, b) ((a).st_ino == (b).st_ino && (a).st_dev == (b).st_dev)
+
 /*
 --------------------------------------------------------------------------------
  Function declarations
 --------------------------------------------------------------------------------
 */
 
-void setup_cwd();
-
-void prompt();
-
-void split_args();
-
-void execute_command();
-
 void print_error(char *str, int perr);
-
-void loop_cleanup();
-
-void cleanup();
 
 //command functions start ====================================================
 void cat();
