@@ -5,6 +5,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <stdbool.h>
+#include <dirent.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -88,4 +89,5 @@ extern int arg_count;                          //stores the no. of arguments
 extern char *arg_values[BUFFER_LENGTH];                      //stores the arguments passed to the command
 
 extern int optind;
+extern int opterr;
 extern int optopt;

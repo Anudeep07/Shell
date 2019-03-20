@@ -193,8 +193,6 @@ void shell_exit()
     exit(0);
 }
 
-void ls(){}
-
 void makedir(){}
 
 void removedir(){}
