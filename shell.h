@@ -9,6 +9,7 @@
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
+#include <fcntl.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 

@@ -16,11 +16,11 @@ bool interactive(char *destination)
 }
 
 //renames source to destination
-void change_name(char *source, char *destination)
+static void change_name(char *source, char *destination)
 {
     bool choice = true;
 
-    if(access(destination, F_OK) == 0 && i_flag)
+    if(i_flag && access(destination, F_OK) == 0)
     {
         //file exists
         choice = interactive(destination);
@@ -74,29 +74,24 @@ char *last_component(char *str)
 }
 
 //moves source file inside destination directory (destination must be dir)
-void append_source_and_change(char *source, char *destination)
+char *append_source(char *source, char *destination)
 {
 
     char *new_source = last_component(source);
-    char new_destination[4096];
+    char *new_destination = (char *) malloc(sizeof(char) * 4096);
     
     snprintf(new_destination, sizeof(new_destination), "%s/%s", destination, new_source);
-    change_name(source, new_destination);
+    //change_name(source, new_destination);
 
     free(new_source);
+    return new_destination;
 }
 
 void mv()
 {
-    if (arg_count == 1)
+    if (arg_count <= 2)
     {
-        print_error("Missing file operand", 0);
-        return;
-    }
-
-    if (arg_count == 2)
-    {
-        print_error("Missing destination file operand", 0);
+        print_error("Usage: mv <source(s)> <destination>", 0);
         return;
     }
     
@@ -129,13 +124,6 @@ void mv()
         struct stat source_buf;
         struct stat destination_buf;
 
-        //check if source file exists
-        if (access(source, F_OK) == -1)
-        {
-            print_error("access", 1);
-            return;
-        }
-
         if (stat(source, &source_buf) == -1) //store source file in source_buf
         {
             print_error("stat", 1);
@@ -145,7 +133,6 @@ void mv()
         if (access(destination, F_OK) == -1)
         {
             //destination file doesn't exist
-
             change_name(source, destination);
         }
         else
@@ -173,7 +160,10 @@ void mv()
                 }
                 else if (S_ISDIR(destination_buf.st_mode))
                 {
-                    append_source_and_change(source, destination);
+                    char *new_destination = append_source(source, destination);
+                    change_name(source, new_destination);
+
+                    free(new_destination);
                 }
                 else
                 {
@@ -185,7 +175,10 @@ void mv()
             {
                 if (S_ISDIR(destination_buf.st_mode))
                 {
-                    append_source_and_change(source, destination);
+                    char *new_destination = append_source(source, destination);
+                    change_name(source, new_destination);
+
+                    free(new_destination);
                 }
                 else
                 {
@@ -233,7 +226,10 @@ void mv()
         //scan through every file & mv it to destination (argc-1 because dont have to mv last one)
         for(int i=optind ; i<arg_count-1 ; i++)
         {
-            append_source_and_change(arg_values[i], destination);
+            char *new_destination = append_source(arg_values[i], destination);
+            change_name(arg_values[i], new_destination);
+
+            free(new_destination);
         }        
     }
 }

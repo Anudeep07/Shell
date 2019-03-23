@@ -1,8 +1,5 @@
 #include "../shell.h"
 
-//#define regular_pr(name) printf(ANSI_COLOR_YELLOW "%s\n" ANSI_COLOR_RESET, name);
-#define dir_pr(name) printf(ANSI_COLOR_MAGENTA "%s\n" ANSI_COLOR_RESET, name);
-
 bool aflag;
 bool lflag;
 bool dflag;

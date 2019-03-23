@@ -197,8 +197,6 @@ void makedir(){}
 
 void removedir(){}
 
-void cp(){}
-
 void ln(){}
 
 void rm(){}
