@@ -192,11 +192,7 @@ void shell_exit()
     exit(0);
 }
 
-void removedir(){}
-
 void ln(){}
-
-void rm(){}
 
 void change_permission(){}
 
