@@ -181,7 +181,6 @@ void print_error(char *str, int perr)
     {
         fprintf(stderr, "%s\n", str);
     }
-    
 
     fprintf(stderr, ANSI_COLOR_RESET);
 }
@@ -192,8 +191,6 @@ void shell_exit()
     cleanup();
     exit(0);
 }
-
-void makedir(){}
 
 void removedir(){}
 

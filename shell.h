@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <math.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <stdbool.h>
@@ -90,8 +91,9 @@ extern size_t commandline_length;               //stores the length of command l
 extern char *command;                          //stores the command
 
 extern int arg_count;                          //stores the no. of arguments
-extern char *arg_values[BUFFER_LENGTH];                      //stores the arguments passed to the command
+extern char *arg_values[BUFFER_LENGTH];        //stores the arguments passed to the command
 
 extern int optind;
 extern int opterr;
 extern int optopt;
+extern char *optarg;

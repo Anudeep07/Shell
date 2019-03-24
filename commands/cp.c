@@ -56,7 +56,7 @@ void cp()
 {
     if(arg_count <= 2)
     {
-        print_error("Usage: cp <source(s)> <destination>", 0);
+        print_error("Usage: cp [options] <source(s)> <destination>", 0);
         return;
     }
 
@@ -79,6 +79,12 @@ void cp()
     }
 
     int file_count = optind ? arg_count - optind : arg_count - 1;       //if no options, then other than cp all are files
+
+    if(file_count < 2)
+    {
+        print_error("Usage: cp [options] <source(s)> <destination>", 0);
+        return;
+    }
 
     if(file_count == 2)
     {
