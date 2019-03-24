@@ -5,7 +5,7 @@
 bool m_flag;    
 int permission = PERMISSION;       //used to store the permissions if m_flag is set   
 
-static int octal_to_decimal(int val)
+int octal_to_decimal(int val)
 {
     int dec=0;
     for(int i=0 ; val != 0 ; i++)

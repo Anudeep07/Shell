@@ -192,10 +192,6 @@ void shell_exit()
     exit(0);
 }
 
-void ln(){}
-
-void change_permission(){}
-
 void touch(){}
 
 void help(){}
