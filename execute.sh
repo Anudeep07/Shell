@@ -5,6 +5,11 @@ then
     mkdir obj
 fi
 
+if [ ! -d "obj/commands" ]
+then
+    mkdir obj
+fi
+
 if [ ! -d "out" ]
 then
     mkdir out
