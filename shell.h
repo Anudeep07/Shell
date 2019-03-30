@@ -5,12 +5,15 @@
 #include <math.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <stdbool.h>
 #include <dirent.h>
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
 #include <fcntl.h>
+#include <utime.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 

@@ -50,7 +50,6 @@ int main()
         loop_cleanup();
     }
 
-    cleanup();
     return 0;
 }
 
@@ -119,31 +118,31 @@ void execute_command()
 
     //function pointer to the respective commands
     void (*functions[])() = {
-        &cat,
-        &cd,
-        &ls,
-        &makedir,
-        &removedir,
-        &cp,
-        &mv,
-        &ln,
-        &rm,
-        &echo,
-        &clearscreen,
-        &change_permission,
-        &pwd,
-        &touch,
-        &home,
-        &path,
-        &help,
-        &shell_exit
+        cat,
+        cd,
+        ls,
+        makedir,
+        removedir,
+        cp,
+        mv,
+        ln,
+        rm,
+        echo,
+        clearscreen,
+        change_permission,
+        pwd,
+        touch,
+        home,
+        path,
+        help,
+        shell_exit
     };
 
     for(i=0 ; i<count_builtin ; i++)
     {
         if(!strcmp(builtin[i], command))
         {
-            optind = 0;                         //setting getopt() index to 1 (starts scanning for options from arg_values[optind]
+            optind = 0;                         //setting getopt() index to 0 (starts scanning for options from arg_values[optind]
             opterr = 0;
             (*functions[i])();                 //respective function will be called
             break;
@@ -153,19 +152,35 @@ void execute_command()
     if(i == count_builtin)
     {
         printf(ANSI_COLOR_RED "Not a builtin command." ANSI_COLOR_RESET "\n");
-        //external command
-        //fork a child & exec
-        //wait for child to exit
+        
+        pid_t child_pid;
+        if((child_pid = fork()) < 0)
+        {
+            print_error("fork", 1);
+            return;
+        }
+        else if(child_pid == 0)
+        {
+            //child process
+            arg_values[arg_count++] = '\0';
+            if(execvp(command, arg_values) == -1)
+                print_error("execvp", 1);
+            exit(0);
+        }
+        else
+        {
+            //parent process
+            int status;
+            wait(&status);
+
+            printf("\n\nChild exited with status: %d\n", status);
+        }        
     }
 }
 
 void loop_cleanup()
 {
     free(commandline);
-}
-
-void cleanup()
-{
 }
 
 void print_error(char *str, int perr)
@@ -188,11 +203,5 @@ void print_error(char *str, int perr)
 void shell_exit()
 {
     loop_cleanup();
-    cleanup();
     exit(0);
 }
-
-void touch(){}
-
-void help(){}
-

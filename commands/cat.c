@@ -1,15 +1,17 @@
 #include "../shell.h"
-void concat(FILE * fp);
-int n,E,s;
+void concat(FILE *fp);
+void squeeze();
+int empty = 1;
+int n, E, s;
 void cat()
 {
     int opt;
     n = s = E = 0;
     char err[25];
 
-    while((opt = getopt(arg_count, arg_values, "nEs")) != -1)
+    while ((opt = getopt(arg_count, arg_values, "nEs")) != -1)
     {
-        switch(opt)
+        switch (opt)
         {
         case 'n':
             n = 1;
@@ -26,31 +28,48 @@ void cat()
             return;
         }
     }
-    if(arg_count == optind)
+    if (arg_count == optind)
         concat(stdin);
 
     FILE *fp;
-    for(int i=optind ; i<arg_count ; i++){
-        if((fp = fopen(arg_values[i],"r")) == NULL)
-            printf("cat : %s: No such file\n",arg_values[i]);
-        else{
+    for (int i = optind; i < arg_count; i++)
+    {
+        if ((fp = fopen(arg_values[i], "r")) == NULL)
+            printf("cat : %s: No such file\n", arg_values[i]);
+        else
+        {
             concat(fp);
         }
     }
 }
 
-void concat(FILE * fp)
+void concat(FILE *fp)
 {
     char *line = NULL;
     size_t len = 0;
     ssize_t nread;
     int no = 1;
-            while ((nread = getline(&line, &len, fp)) != -1) {
-                int len = strlen(line);
-                line[len-1] = '\0';
-                if(n == 1)
-                    printf("\t%d\t",no);
-                printf("%s%c\n",line,(E == 1)?'$':'\0');
-                no++;
-            }
+    while ((nread = getline(&line, &len, fp)) != -1)
+    {
+        if (s && line[0] == '\n')
+            squeeze();
+        else
+        {
+            empty = 1;
+            int len = strlen(line);
+            line[len - 1] = '\0';
+            if (n == 1)
+                printf("\t%d\t", no);
+            printf("%s%c\n", line, (E == 1) ? '$' : '\0');
+            no++;
+        }
+    }
+}
+
+void squeeze()
+{
+    if(empty == 1){
+        printf("\n");
+        empty = 0;
+    }
 }

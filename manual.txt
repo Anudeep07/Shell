@@ -1,0 +1,19 @@
+This shell has the following in-built commands:
+    1. cat      -   concatenate files and print on the standard output
+    2. cd       -   change working directory
+    3. chmod    -   change permissions of a file
+    4. clear    -   clear the terminal screen
+    5. cp       -   copy files and directories
+    6. echo     -   display a line of text
+    7. help     -   show the manual of the shell
+    8. home     -   display the home directory of the shell
+    9. ln       -   make links between files
+    10. ls      -   list directory contents
+    11. mkdir   -   make directories
+    12. mv      -   move (rename) files
+    13. path    -   display the path environment variable of the shell
+    14. pwd     -   display the current working directory
+    15. rm      -   remove files
+    16. rmdir   -   remove empty directories
+    17. touch   -   change file timestamps
+    

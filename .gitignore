@@ -1,5 +1,14 @@
-# Created by https://www.gitignore.io/api/visualstudiocode
-# Edit at https://www.gitignore.io/?templates=visualstudiocode
+
+# Created by https://www.gitignore.io/api/c,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=c,visualstudiocode
+
+### C ###
+
+# Object files
+obj/
+
+# Executables
+out/
 
 ### VisualStudioCode ###
 .vscode/*
@@ -12,6 +21,4 @@
 # Ignore all local history of files
 .history
 
-out
-
-# End of https://www.gitignore.io/api/visualstudiocode
+# End of https://www.gitignore.io/api/c,visualstudiocode

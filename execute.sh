@@ -1,5 +1,4 @@
 #!/bin/sh
 
-gcc main.c commands/* -o shell.out -lreadline -lm && \
-mv *.out out && \
+make -s && \
 out/shell.out

@@ -179,17 +179,14 @@ static void print_directories(char *dirpath)
 
         if(S_ISDIR(statbuf.st_mode))
         {
-//            dir_pr(file);
             print_file(file, 0);
         }
         else if(S_ISREG(statbuf.st_mode))
         {
-            //regular_pr(file);
             print_file(file, 1);
         }
         else
         {
-            //printf("%s\n", file);
             print_file(file, -1);
         }        
 
