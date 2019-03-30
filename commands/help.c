@@ -11,13 +11,6 @@ void help()
     clearscreen();
     printf("\t\t\t\tWelcome to the Shell Manual\n");    
     printf("\t\t\t\t---------------------------\n");    
-    
-    FILE *manual;
-    if((manual = fopen("/home/anudeep/MyComputer/NMAMIT/VI Sem/Shell/manual.txt", "r")) == NULL)
-    {
-        print_error("fopen", 1);
-        return;
-    }
 
     printf("This shell has the following in-built commands:\n");
     printf("    1. cat      -   concatenate files and print on the standard output\n");
@@ -37,8 +30,7 @@ void help()
     printf("    15. rm      -   remove files\n");
     printf("    16. rmdir   -   remove empty directories\n");
     printf("    17. touch   -   change file timestamps\n");
-
-    fclose(manual);    
+    
     char c;
     while((c = getchar()) != '\n')
         ;
