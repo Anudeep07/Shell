@@ -7,7 +7,7 @@ fi
 
 if [ ! -d "obj/commands" ]
 then
-    mkdir obj
+    mkdir obj/commands
 fi
 
 if [ ! -d "out" ]
