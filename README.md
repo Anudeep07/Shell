@@ -11,7 +11,7 @@
 ### How to run:
 
 ```sh
-git clone https://github.com/Anudeep07/Shell.git
-cd Shell
-sh execute.sh
+$ git clone https://github.com/Anudeep07/Shell.git
+$ cd Shell
+$ sh execute.sh
 ```
